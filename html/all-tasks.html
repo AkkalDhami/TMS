@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Tasks - NepTask</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../src/style.css" />
+    <link rel="stylesheet" href="../src/output.css" />
+    <link rel="stylesheet" href="../src/style.css" />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+</head>
+
+<body data-theme="dark" class="min-h-screen bg-[var(--bg)] font-poppins text-[var(--text-color)]">
+    <header class="navbar">
+        <script src="../utils/navbar.js"></script>
+    </header>
+
+
+    <!-- Sidebar -->
+    <aside id="sideNav"
+        class="fixed top-5 bg-[var(--primary-bg)] left-0 h-full z-40 border-r-2 border-zinc-500/40 p-5 space-y-6 w-[270px] md:block -translate-x-full md:translate-x-0 transition-all duration-300 transition-width pb-8 max-h-screen  overflow-y-auto">
+        <script src="../utils/sideNav.js"></script>
+    </aside>
+    <div id="overlay" class="fixed inset-0 bg-black/20 backdrop-blur-[2px] hidden z-30 md:hidden"></div>
+
+    <main id="main-content" class=" pt-20 md:pt-20 px-4 transition-all duration-300 md:ml-[270px]">
+        <div class="mb-8 flex flex-wrap gap-4 items-center justify-between">
+            <h2 class="text-2xl font-bold">All Tasks</h2>
+            <div class="flex flex-wrap gap-3">
+
+                <select id="statusFilter"
+                    class="px-4 py-2 rounded-lg bg-[var(--card-bg)] border border-purple-500/20 focus:outline-none focus:border-purple-500">
+                    <option value="all">All Status</option>
+                    <option value="completed">Completed</option>
+                    <option value="in-progress">In Progress</option>
+                    <option value="pending">Pending</option>
+                </select>
+                <select id="priorityFilter"
+                    class="px-4 py-2 rounded-lg bg-[var(--card-bg)] border border-purple-500/20 focus:outline-none focus:border-purple-500">
+                    <option value="all">All Priority</option>
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select>
+                <select id="categoryFilter"
+                    class="px-4 py-2 rounded-lg bg-[var(--card-bg)] border border-purple-500/20 focus:outline-none focus:border-purple-500">
+                    <option value="all">All Categories</option>
+                    <option value="work">Work</option>
+                    <option value="personal">Personal</option>
+                    <option value="shopping">Shopping</option>
+                    <option value="health">Health</option>
+                    <option value="entertainment">Entertainment</option>
+                    <option value="education">Education</option>
+                </select>
+                <select id="subtaskFilter"
+                    class="px-4 py-2 rounded-lg bg-[var(--card-bg)] border border-purple-500/20 focus:outline-none focus:border-purple-500">
+                    <option value="all">All Tasks</option>
+                    <option value="yes">With Subtasks</option>
+                    <option value="no">Without Subtasks</option>
+                </select>
+                <input type="search" id="searchTask" placeholder="Search tasks..."
+                    class="px-4 py-2 rounded-lg min-w-[100px] bg-[var(--card-bg)] outline-0 border border-purple-500/20 focus:outline-none focus:border-purple-500">
+            </div>
+
+        </div>
+
+
+        <div id="tasksContainer" class="space-y-8">
+        </div>
+
+    </main>
+
+    <div id="toastContainer" class="fixed top-20 right-4 z-50">
+
+    </div>
+
+    <!-- Note Detail Modal -->
+    <div id="noteDetailModal"
+        class="fixed inset-0 bg-black/30 backdrop-blur-sm hidden items-center justify-center p-4  z-50">
+        <div class="bg-[var(--card-bg)] rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] flex flex-col">
+
+            <div class="flex justify-between items-center p-3 sm:p-6 border-b border-gray-500/30">
+                <div class="flex items-center space-x-4">
+                    <div class="p-2 bg-purple-500/10 rounded-md">
+                        <i class="ri-booklet-line text-2xl text-purple-500"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-[18px] sm:text-xl font-semibold" id="noteDetailTitle">Project Brainstorm</h3>
+                        <p class="text-xs sm:text-sm text-[var(--text-gray)] mt-[2px]" id="noteDetailDate">Created May
+                            15, 2023</p>
+                    </div>
+                </div>
+                <button type="button" onclick="hidNoteDetailsModal()" class="p-2 rounded-lg transition-colors">
+                    <svg class="w-4.5 sm:w-6 h-4.5 sm:h-6 text-[var(--text-gray)] hover:text-purple-500" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="px-6 py-3 overflow-y-auto flex-grow">
+                <div class="prose max-w-none break-words whitespace-pre-line mb-6" id="noteDetailContent">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero qui architecto quos perspiciatis
+                    aspernatur
+                    hic, ex pariatur sunt. Corporis, excepturi praesentium ratione debitis sed, quidem, corrupti magni
+                    doloribus
+                    iusto quo aut numquam officia delectus!
+                </div>
+
+                <div class="flex flex-wrap items-center gap-4  pt-2 text-sm text-[var(--text-gray)]">
+                    <div class="flex items-center space-x-2">
+                        <i class="far fa-clock"></i>
+                        <span id="noteDetailLastEdited">Last edited: 1 hour ago</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <i class="far fa-user"></i>
+                        <span id="noteDetailAuthor">Created by: John Doe</span>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4  flex flex-col space-y-3 justify-between">
+
+                <div class="flex justify-end items-center">
+                    <button onclick="hidNoteDetailsModal()"
+                        class="px-3 sm:px-6 py-2.5 text-[var(--text-gray)] border border-gray-500/20 hover:border-purple-500 rounded-lg transition-colors font-medium">
+                        Close
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="mt-20 neptaskfooter w-full border-t-2 border-purple-500/20">
+        <script src="../utils/footer.js"></script>
+    </footer>
+    <script src="../utils/back-to-top.js"></script>
+    <script type="module" src="../utils/newsletter.js"></script>
+    <script src="../utils/toggle-theme.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="../js/all-tasks.js"></script>
+    <!-- <script src="../utils/toggle-menu.js"></script> -->
+    <script src="../js/sidebar.js"></script>
+</body>
+
+</html>
