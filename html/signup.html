@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up - NepTask</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="../src/style.css">
+    <link rel="stylesheet" href="../src/output.css">
+</head>
+
+<body data-theme="light"
+    class="min-h-screen flex items-center flex-col justify-center font-poppins transition-colors duration-300">
+
+    <section class="relative w-full max-w-4xl mx-auto p-4 sm:p-6">
+        <div class="text-center mb-8">
+            <h1 onclick="window.location.href='../index.html'"
+                class="text-4xl cursor-pointer font-bold text-purple-500  text-center mb-2 transition-transform hover:scale-105">
+                NepTask
+            </h1>
+            <p class="text-[var(--text-gray)] text-lg">Create your account and boost your productivity</p>
+        </div>
+
+        <div
+            class="bg-[var(--card-bg)] backdrop-blur-lg rounded-2xl shadow-xl p-6 sm:p-8 border border-purple-500/20 hover:border-purple-500/30 transition-all">
+            <form id="signupForm" class="space-y-6">
+                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                    <!-- Full Name -->
+                    <div class="space-y-2">
+                        <label for="fullName" class="block text-[var(--text-color)] font-medium">Full Name</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-purple-500">
+                                <i class="ri-user-line"></i>
+                            </span>
+                            <input type="text" id="fullName" name="fullName"
+                                class="w-full pl-10 pr-4 py-3 bg-[var(--card-bg)] border border-purple-500/20 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all placeholder-gray-400"
+                                placeholder="John Doe">
+                        </div>
+                        <p id="fullNameError" class="text-red-500 text-sm hidden"></p>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="space-y-2">
+                        <label for="email" class="block text-[var(--text-color)] font-medium">Email</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-purple-500">
+                                <i class="ri-mail-line"></i>
+                            </span>
+                            <input type="email" id="email" name="email"
+                                class="w-full pl-10 pr-4 py-3 bg-[var(--card-bg)] border border-purple-500/20 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all placeholder-gray-400"
+                                placeholder="your@email.com">
+                        </div>
+                        <p id="emailError" class="text-red-500 text-sm hidden"></p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="password" class="block text-[var(--text-color)] font-medium">Password</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-purple-500">
+                                <i class="ri-lock-line"></i>
+                            </span>
+                            <input type="password" id="password" name="password"
+                                class="w-full pl-10 pr-10 py-3 bg-[var(--card-bg)] border border-purple-500/20 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all placeholder-gray-400"
+                                placeholder="••••••••">
+                            <button type="button" id="togglePassword"
+                                class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-purple-500 transition-colors">
+                                <i class="ri-eye-off-line"></i>
+                            </button>
+                        </div>
+                        <p id="passwordError" class="text-red-500 text-sm hidden"></p>
+
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="space-y-2">
+                        <label for="confirmPassword" class="block text-[var(--text-color)] font-medium">Confirm
+                            Password</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-purple-500">
+                                <i class="ri-lock-line"></i>
+                            </span>
+                            <input type="password" id="confirmPassword" name="confirmPassword"
+                                class="w-full pl-10 pr-4 py-3 bg-[var(--card-bg)] border border-purple-500/20 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all placeholder-gray-400"
+                                placeholder="••••••••">
+                        </div>
+                        <p id="confirmPasswordError" class="text-red-500 text-sm hidden"></p>
+                    </div>
+
+
+                </div>
+
+                <!-- Terms Checkbox -->
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <div class="flex items-center h-5">
+                            <input type="checkbox" id="terms" name="terms"
+                                class="w-4 h-4 accent-purple-500 text-purple-600 border-gray-300 rounded focus:ring-purple-500">
+                        </div>
+                        <label for="terms" class="ml-3 block text-sm text-[var(--text-gray)]">
+                            I agree to the <a href="#" class="text-purple-600 hover:text-purple-500 font-medium">Terms
+                                of Service</a> and
+                            <a href="#" class="text-purple-600 hover:text-purple-500 font-medium">Privacy Policy</a>
+                        </label>
+                    </div>
+                    <p id="termsError" class="text-red-500 text-sm hidden"></p>
+
+                    <!-- Submit Button -->
+                    <button type="submit"
+                        class="w-full py-3.5 px-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-lg hover:shadow-lg transition-all transform hover:-translate-y-0.5 active:translate-y-0">
+                        <span class="flex items-center justify-center">
+                            <span>Create Account</span>
+                            <i class="ri-arrow-right-line ml-2"></i>
+                        </span>
+                    </button>
+                </div>
+
+                <!-- Divider -->
+                <div class="relative my-6">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-300"></div>
+                    </div>
+                    <div class="relative flex justify-center">
+                        <span class="bg-[var(--card-bg)] px-4 text-sm text-[var(--text-gray)]">or sign up with</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-4">
+                    <button type="button"
+                        class="flex justify-center items-center py-2.5 border border-purple-500/20 rounded-lg hover:bg-[var(--card-bg)] transition-colors">
+                        <i class="ri-google-fill text-xl"></i>
+                    </button>
+                    <button type="button"
+                        class="flex justify-center items-center py-2.5 border border-purple-500/20 rounded-lg hover:bg-[var(--card-bg)] transition-colors">
+                        <i class="ri-facebook-fill text-xl"></i>
+                    </button>
+                    <button type="button"
+                        class="flex justify-center items-center py-2.5 border border-purple-500/20 rounded-lg hover:bg-[var(--card-bg)] transition-colors">
+                        <i class="ri-github-fill text-xl"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Login Link -->
+        <div class="text-center mt-6">
+            <p class="text-[var(--text-gray)]">
+                Already have an account? <a href="login.html"
+                    class="text-purple-600 hover:text-purple-500 font-medium">Log in</a>
+            </p>
+        </div>
+    </section>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="fixed bottom-4 right-4 flex flex-col gap-2"></div>
+
+    <script type="module" src="../js/auth.js"></script>
+    <script src="../utils/toggle-theme.js"></script>
+</body>
+
+</html>
