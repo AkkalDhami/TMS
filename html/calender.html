@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Todo Calendar</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../src/output.css" />
+  <link rel="stylesheet" href="../src/style.css" />
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+
+<body class="h-full font-poppins bg-[var(--primary-bg)] transition-colors duration-200" data-theme="dark">
+  <header class="navbar">
+    <script src="../utils/navbar.js"></script>
+  </header>
+
+
+  <!-- Sidebar -->
+  <aside id="sideNav"
+    class="fixed top-5 bg-[var(--primary-bg)] left-0 h-full z-40 border-r-2 border-zinc-500/40 p-5 space-y-6 w-[270px] md:block -translate-x-full md:translate-x-0 transition-all duration-300 transition-width pb-8 max-h-screen  overflow-y-auto">
+    <script src="../utils/sideNav.js"></script>
+  </aside>
+  <div id="overlay" class="fixed inset-0 bg-black/20 backdrop-blur-[2px] hidden z-30 md:hidden"></div>
+
+  <!-- main section -->
+  <main id="main-content" class="pt-24 md:pt-26 px-4 transition-all duration-300 md:ml-[270px]">
+    <!-- Calendar Container -->
+    <div class="rounded-2xl max-w-[1300px] w-full whitespace-nowrap overflow-x-auto">
+      <div class="flex justify-between items-center mb-6">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-lg bg-purple-500/10 flex items-center justify-center">
+            <i class="ri-calendar-line text-2xl text-purple-500"></i>
+          </div>
+          <h2 class="text-2xl font-bold" id="currentMonth"></h2>
+        </div>
+        <div class="flex items-center gap-3">
+          <button id="prevMonth"
+            class="w-10 h-10 flex cursor-pointer items-center justify-center bg-[var(--primary-bg)] hover:bg-purple-500/10 rounded-full transition-all duration-300 border border-purple-500/20">
+            <i class="ri-arrow-left-s-line text-purple-500"></i>
+          </button>
+          <button id="nextMonth"
+            class="w-10 h-10 flex cursor-pointer items-center justify-center bg-[var(--primary-bg)] hover:bg-purple-500/10 rounded-full transition-all duration-300 border border-purple-500/20">
+            <i class="ri-arrow-right-s-line text-purple-500"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- calander grid -->
+      <div class="max-w-[1440px] w-full overflow-x-auto ">
+        <div class="min-w-[900px] sm:min-w-full whitespace-nowrap">
+          <div class="grid grid-cols-7 gap-2 h-[calc(100%-60px)]">
+            <!-- Days Header -->
+            <div class="text-center font-bold py-1.5 text-[var(--text-gray)] border-b border-purple-500/20">
+              Sun
+            </div>
+            <div class="text-center font-bold py-1.5 text-[var(--text-gray)] border-b border-purple-500/20">
+              Mon
+            </div>
+            <div class="text-center font-bold py-1.5 text-[var(--text-gray)] border-b border-purple-500/20">
+              Tue
+            </div>
+            <div class="text-center font-bold py-1.5 text-[var(--text-gray)] border-b border-purple-500/20">
+              Wed
+            </div>
+            <div class="text-center font-bold py-1.5 text-[var(--text-gray)] border-b border-purple-500/20">
+              Thu
+            </div>
+            <div class="text-center font-bold py-1.5 text-[var(--text-gray)] border-b border-purple-500/20">
+              Fri
+            </div>
+            <div class="text-center font-bold py-1.5 text-[var(--text-gray)] border-b border-orange-500/20">
+              Sat
+            </div>
+
+            <!-- Dates will be inserted here -->
+            <div id="calendarDates" class="col-span-7 px-5 grid grid-cols-7 gap-0 pb-4 pt-2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- quick links -->
+    <section class="mx-auto max-w-[1400px]">
+      <div
+        class="m-3 border border-purple-500/20 backdrop-blur-lg bg-[var(--card-bg)] mt-4 p-4 sm:p-8 rounded-xl shadow-lg">
+        <h2 class="text-2xl font-bold mb-6 bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text">
+          Feature Navigation
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      
+            <div onclick="openChart()"
+              class="flex items-center p-4 rounded-lg border border-emerald-500/30 hover:border-emerald-500 group transition-all duration-300 bg-gradient-to-r from-emerald-500/5 to-green-500/5 hover:from-emerald-500/10 hover:to-green-500/10 cursor-pointer">
+              <div
+                class="w-12 h-12 rounded-full flex items-center justify-center bg-emerald-500/10 group-hover:bg-emerald-500/20 mr-4 transition-all duration-300">
+                <i class="ri-bar-chart-fill text-2xl text-emerald-600 group-hover:text-emerald-700"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold text-[18px] text-emerald-600 group-hover:text-emerald-700">
+                  Statistics
+                </h3>
+                <p class="text-sm text-[var(--text-gray)]">
+                  View your task analytics
+                </p>
+              </div>
+            </div>
+
+            <div onclick="openPieChart()"
+              class="flex items-center p-4 rounded-lg border border-amber-500/30 hover:border-amber-500 group transition-all duration-300 bg-gradient-to-r from-amber-500/5 to-yellow-500/5 hover:from-amber-500/10 hover:to-yellow-500/10 cursor-pointer">
+              <div
+                class="w-12 h-12 rounded-full flex items-center justify-center bg-amber-500/10 group-hover:bg-amber-500/20 mr-4 transition-all duration-300">
+                <i class="ri-pie-chart-fill text-2xl text-amber-600 group-hover:text-amber-700"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold text-[18px] text-amber-600 group-hover:text-amber-700">
+                  Pie Chart
+                </h3>
+                <p class="text-sm text-[var(--text-gray)]">
+                  Task distribution overview
+                </p>
+              </div>
+            </div>
+
+       
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+
+  <!-- Task Modal -->
+  <div id="taskModal"
+    class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm bg-opacity-50 items-center justify-center">
+    <div class="m-3">
+      <div
+        class="bg-[var(--card-bg)] relative text-[var(--text-color)] px-2 py-3 rounded-lg max-h-[780px] overflow-y-auto">
+        <div class="flex items-center justify-between">
+          <h3 class="text-[18px] sm:text-xl font-bold py-2" id="modalDate"></h3>
+          <i onclick="closeModal()"
+            class="ri-close-large-fill font-semibold cursor-pointer text-[var(--text-gray)] hover:text-purple-500"></i>
+        </div>
+        <div id="taskCount"
+          class="text-[12px] mb-4 sm:text-sm font-medium flex items-center justify-between text-[var(--text-gray)]">
+        </div>
+        <div id="tasksList"></div>
+
+        <!-- total task -->
+        <div class="flex mt-2 space-y-1 mb-2 text-[14px] sm:text-[18px] flex-col">
+          <div class="flex justify-between px-2 font-medium text-yellow-500 items-center">
+            <span>Pending Tasks:</span>
+            <span id="pendingTasks">0</span>
+          </div>
+          <div class="flex justify-between px-2 text-blue-500 font-medium items-center">
+            <span>In Progress Tasks:</span>
+            <span id="inProgressTasks">0</span>
+          </div>
+          <div class="flex justify-between px-2 text-green-500 font-medium items-center">
+            <span>Completed Tasks:</span>
+            <span id="completedTasks">0</span>
+          </div>
+          <div class="flex pb-1.5 justify-between px-2 text-pink-500 font-medium items-center">
+            <span>Task Progress:</span>
+            <span id="taskProgress">0%</span>
+          </div>
+
+          <div
+            class="flex border-t-2 border-gray-500/20 pt-1.5 justify-between text-orange-500 px-2 font-medium items-center">
+            <span>Total Tasks:</span>
+            <span id="totalTasks">0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pie Chart Modal -->
+  <div id="taskPieChartContainer"
+    class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center transition-all duration-300 opacity-0 pointer-events-none">
+    <div class="bg-[#121212] text-[#fff] rounded-xl shadow-xl p-6 w-full max-w-md mx-4">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-semibold">Your Today's Task Overview</h2>
+        <button onclick="closePieChart()"
+          class="p-2 text-white cursor-pointer rounded-full hover:text-purple-600 transition-colors">
+          <i class="ri-close-line text-2xl"></i>
+        </button>
+      </div>
+      <div class="relative h-80">
+        <canvas id="taskPieChart"></canvas>
+      </div>
+      <div id="pieChartLegend" class="flex justify-center gap-4 mt-8"></div>
+    </div>
+  </div>
+
+  <div id="dailyChartContainer"
+    class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 items-center justify-center transition-all duration-300 opacity-0 hidden">
+    <div class="bg-[var(--card-bg)] mx-3  duration-200 p-5 rounded-xl backdrop-blur-[20px] mb-8">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-xl font-semibold">Daily Task Distribution</h3>
+        <button onclick="closeDailyChart()"
+          class="p-2 cursor-pointer rounded-full hover:text-purple-600 transition-colors">
+          <i class="ri-close-line text-2xl"></i>
+        </button>
+      </div>
+
+      <div class="h-[300px]">
+        <canvas id="dailyDistributionChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bar Chart Modal -->
+  <div id="taskChartContainer"
+    class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center transition-all duration-300 opacity-0 pointer-events-none">
+    <div class="bg-[#121212] text-[#fff] rounded-xl shadow-xl p-6 w-full max-w-2xl mx-4">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-semibold">Your Today's Task Statistics</h2>
+        <button onclick="closeChart()"
+          class="p-2 text-[#fff] cursor-pointer rounded-full hover:text-purple-600 transition-colors">
+          <i class="ri-close-line text-2xl"></i>
+        </button>
+      </div>
+      <div class="relative h-80">
+        <canvas id="taskChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Weekly Line Chart Modal -->
+  <div id="lineChartContainer"
+    class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 flex items-center justify-center transition-all duration-300 opacity-0 pointer-events-none">
+    <div class="bg-[#121212] text-[#fff] rounded-xl shadow-xl p-6 w-full max-w-4xl mx-4">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-semibold dark:text-white">Weekly Progress</h2>
+        <button onclick="closeLineChart()"
+          class="p-2 cursor-pointer rounded-full hover:text-purple-600 transition-colors">
+          <i class="ri-close-line text-2xl cursor-pointer"></i>
+        </button>
+      </div>
+      <div class="relative h-96">
+        <canvas id="lineChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div id="toastContainer" class="fixed top-[80px] right-[20px] z-10"></div>
+
+  <!-- Footer Section -->
+  <footer class="mt-20 neptaskfooter w-full border-t-2 border-purple-500/20">
+    <script src="../utils/footer.js"></script>
+  </footer>
+
+  <script src="../js/calender.js"></script>
+  <script src="../utils/back-to-top.js"></script>
+  <!-- <script src="../utils/toggle-menu.js"></script> -->
+  <script src="../js/sidebar.js"></script>
+  <script src="../utils/toggle-theme.js"></script>
+  <script type="module" src="../utils/newsletter.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+
+</html>
