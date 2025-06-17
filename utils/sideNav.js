@@ -4,7 +4,7 @@ if (sideNav) {
   sideNav.classList.add('mt-8')
   sideNav.classList.remove('border-zinc-500/40')
   sideNav.innerHTML = `
-      <button id="desktop-toggle" class="hidden absolute bottom-4 right-1.5 bg-zinc-500/30 w-[40px] h-[40px] rounded-full md:block text-xl  hover:bg-purple-500 transition">
+      <button id="desktop-toggle" class="hidden absolute bottom-10 right-1.5 bg-zinc-500/30 w-[40px] h-[40px] rounded-full md:block text-xl  hover:bg-purple-500 transition">
       <i class="ri-arrow-left-right-line"></i>
       </button>
 
@@ -70,10 +70,23 @@ if (sideNav) {
     </nav>
 
     <div class="mt-auto border-t border-zinc-500/30 pt-4">
-      <a href="/" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-red-500/10 text-red-600 transition">
+      <a href="javascript:logout()" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-red-500/10 text-red-600 transition">
         <i class="ri-logout-box-line text-xl"></i>
         <span class="sidebar-label">Logout</span>
       </a>
     </div>
 `;
+}
+
+// Logout function
+function logout() {
+  // Update current user status
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  if (currentUser) {
+    currentUser.isLoggedIn = false;
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+  }
+
+  // Redirect to login page
+  window.location.href = '/';
 }
